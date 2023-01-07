@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文是我的离散数学论文,关于希尔伯特之梦,哥德尔不完备性定理的简单证明思路,图灵停机问题的简单介绍.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="希尔伯特、哥德尔、图灵">
+<meta property="og:url" content="http://leingbai.github.io/2023/01/07/%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E3%80%81%E5%93%A5%E5%BE%B7%E5%B0%94%E3%80%81%E5%9B%BE%E7%81%B5/index.html">
+<meta property="og:site_name" content="LeingBai&#39;s Blog">
+<meta property="og:description" content="本文是我的离散数学论文,关于希尔伯特之梦,哥德尔不完备性定理的简单证明思路,图灵停机问题的简单介绍.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-01-07T15:51:36.000Z">
+<meta property="article:modified_time" content="2023-01-07T16:06:55.743Z">
+<meta property="article:author" content="LeingBai">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://LeingBai.github.io/2023/01/07/希尔伯特、哥德尔、图灵/"/>
+
+
+
+
+
+  <title>希尔伯特、哥德尔、图灵 | LeingBai's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LeingBai's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">LeingBai's Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://LeingBai.github.io/2023/01/07/%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E3%80%81%E5%93%A5%E5%BE%B7%E5%B0%94%E3%80%81%E5%9B%BE%E7%81%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LeingBai's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">希尔伯特、哥德尔、图灵</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-07T23:51:36+08:00">
+                2023-01-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文是我的离散数学论文,关于希尔伯特之梦,哥德尔不完备性定理的简单证明思路,图灵停机问题的简单介绍.</p>
+<span id="more"></span>
+<h2 id="引子——自指的悖论"><a href="#引子——自指的悖论" class="headerlink" title="引子——自指的悖论"></a>引子——自指的悖论</h2><p>有一位理发师在广告上声称：“将为本城所有不给自己刮胡子的人刮胡子，我也只给这些人刮胡子。”但有一天，这位理发师从镜子里看见自己的胡子长了，那他能不能给他自己刮胡子呢?如果他不给自己刮，他就属于“不给自己刮胡子的人”，他就要给自己刮胡子，而如果他给自己刮胡子呢?他又属于“给自己刮胡子的人”，他就不该给自己刮胡子了。</p>
+<p>古希腊克里特岛上有个智者说过一句著名的话，所有克里特岛人都说谎。</p>
+<p>以上两个例子用离散数学中的集合论来表示，就是：存在一个集合C，它包含了所有不包含自身的集合。显然，这其中蕴含了一个悖论，如果它包含了自身，那它就不是“包含了所有不包含自身的集合”，因为里面有它自身，如果它不包含自身，那它就不能包含“所有”不包含自身的集合。这就是“罗素悖论”</p>
+<p>数学家们通过对集合的定义进行了修改，解决（暂时）了这个悖论，它将“包含了所有不包含自身的集合”开除出了集合。这种做法显然是权宜之计，自指的幽灵依旧围绕着数学。</p>
+<h2 id="一、希尔伯特的形式主义梦想"><a href="#一、希尔伯特的形式主义梦想" class="headerlink" title="一、希尔伯特的形式主义梦想"></a>一、希尔伯特的形式主义梦想</h2><p>在本学期的离散数学的学习中，我们学习了命题逻辑（propositional）和谓词逻辑（predicates logic），我们用它来进行一些证明(proof)并进行推论（inference），来证明一些新命题是正确的。这样做的好处是准确无误，相比自然语言的模糊，它具有不可比拟的优越性。于是在引子中罗素悖论被提出而引发的论战中，希尔伯特提出了它的形式主义计划。</p>
+<p>希尔伯特的目标是将整个数学体系严格公理化，然后用元数学（证明数学的数学）来证明整个数学体系是坚实的。</p>
+<p>希尔伯特的计划中，他要将这套“数学之数学”拥有这三个特性：</p>
+<p>完备性：在形式化之后，数学里所有的真命题都可以被证明。</p>
+<p>一致性：运用这一套形式化和它的规则，不可能推导出矛盾。（没有悖论）</p>
+<p>确定性：应该有一个算法，来确定每一个形式化的命题是真命题还是假命题。</p>
+<p>我们学习的计算机就是形式数学的最伟大产物。</p>
+<p>希尔伯特在发表他的伟大计划的演讲最后说出了刻在他墓志铭上的话，“We must know. We will know.”</p>
+<p>但是很可惜，在希尔伯特演讲后的第二年，哥德尔发表了他的关于不完备性定理的证明。</p>
+<h2 id="二、哥德尔的不完备性定理的证明思路"><a href="#二、哥德尔的不完备性定理的证明思路" class="headerlink" title="二、哥德尔的不完备性定理的证明思路"></a>二、哥德尔的不完备性定理的证明思路</h2><p>哥德尔试图用逻辑和数学来回答关于逻辑和数学系统自身的问题。（一致性）为此，它提出了著名的哥德尔数。</p>
+<p>比如，“非”也就是“¬”，这个逻辑符号，用数字“1”来代替。</p>
+<p>“∀”即“所有”对应的是“2”。</p>
+<p>“⊃”（如果-那么）对应“3”。</p>
+<p>“∨”（或）对应“4”</p>
+<p>“&#x3D;”对应“5”……</p>
+<p>那么，如果所有的数字都拿去表示符号了，那么数字本身该如何表示呢？</p>
+<p>答案是用“s”和“0”，“s”表示后驱，“6”表示“0”如果表示“1”那就用“s6”“2”就是“ss6”，这样我们就可以表示出全部的正整数。</p>
+<p>这样，我们就可以开始用哥德尔数来表示一些新的东西，比如说，“0&#x3D;0”，用哥德尔数来表示就是“656”。</p>
+<p>我们同样可以用一个哥德尔数来表示这个方程，我们从2开始取素数，构造式子如下：</p>
+<p>2^6+3^5+5^6</p>
+<p>而这个式子等于2.43*108，即2.43亿。那么2.43亿就是方程“0&#x3D;0”的哥德尔数。由于哥德尔数过大，我们可以使用字母“a”来表示这个命题。</p>
+<p>按照这样的方法，我们可以为任意一个命题构建它的哥德尔数。反之，对于任意一个哥德尔数，我们可以通过分解质因数的计算方法，还原出命题中的每一个符号。但是我们任意给出的命题有真有假，我们还需要想办法去证明这些命题是真的还是假的。</p>
+<p>但是哥德尔在证明过程中，找到了一个命题，这个命题是“哥德尔数‘g’对应的命题不存在证明”。但关键是，这个命题对应的哥德尔数，就是“g”。</p>
+<p>很明显，这又是“理发师问题”，这是一个自指的问题，但与集合论中的悖论，或者克里特岛上说谎的人不同的是，这一次我们完全运用了数学与逻辑符号来构建我们的系统，而没有使用自然语言对任何概念进行定义。</p>
+<p>让我们回到这个命题“g”，如果这个“g”是假命题，那么这个“g”我们无法证明，说明命题“g”又是正确的。这是悖论。如果这个“g”是真命题，那么我们就得到了一个无法被证明的真命题。一头是悖论，一头是真命题不可证明。要么没有一致性，要么没有完备性。</p>
+<p>这就是哥德尔如何利用自指证明一个蕴含了基础算数公理的基本数学系统，总是存在无法证明的真命题。</p>
+<h2 id="三、图灵机里的自指幽灵"><a href="#三、图灵机里的自指幽灵" class="headerlink" title="三、图灵机里的自指幽灵"></a>三、图灵机里的自指幽灵</h2><p>图灵机，又称图灵计算机指一个抽象的机器是英国数学家艾伦・麦席森・图灵于1936年提出的一种抽象的计算模型，即将人们使用纸笔进行数学运算的过程进行抽象，由一个虚拟的机器替代人类进行数学运算。它有一条无限长的纸带，纸带分成了一个一个的小方格，每个方格有不同的颜色。有一个机器头在纸带上移来移去。机器头有一组内部状态，还有一些固定的程序。在每个时刻，机器头都要从当前纸带上读入一个方格信息，然后结合自己的内部状态查找程序表，根据程序输出信息到纸带方格上，并转换自己的内部状态，然后进行移动。<br>我们假设一个图灵机，它读取无限长的磁条，上面写有“0”或“1”，一次读写一位，然后磁头对旧值进行覆盖、左移、右移、或者停机。停机则意味着当前的程序运行到了终止状态。对于给定的纸带，即“1010101010……”串，因为这个思维模型拥有无限大的内存，所以它可以运算无限长的磁条，只要拥有足够的时间，它可以解决所有的数学命题，听上去和哥德尔的数学系统有点类似。</p>
+<p>而图灵机对于判断希尔伯特的第三个问题，即“确定性”问题上，很有用处。</p>
+<p>我们输入一个纸带，当图灵机停机时，纸带即为程序运行的结果。不过图灵机也有无限循环的时候，比如图灵机内部的程序为“读到‘1’返回，读到‘0’前进”，那么对于输入的磁条“01”来说，图灵机便陷入了循环永远不会停机。</p>
+<p>我们把图灵机停机看作命题被证明为真，不停机被证明为假，会发现，判断图灵机对于给定的纸带是否会停机和希尔伯特的“确定性”问题有着许多相似之处。</p>
+<p>我们不妨假设有这样一个机器“h”，它可以判断任意的图灵机对于给定的磁条输入，是否会停机。它有两个输入，一个是我们给定的磁条，一个是图灵机的程序。然后他会输出停机，或循环两种结果。现在我们给机器“h”加上一个“否”的逻辑词，组成“h+”。</p>
+<p>现在我们给“h+”的两个输入都输入“h+”的程序磁条，（0和1可以表示所有的图灵机的程序，因为“0”和“1”是无所不能的！）那么，“h+”就开始模拟“给‘h+”输入了“h+”会发生什么？<br>答案还是自指的悖论。如果“h+”中的“h”的结论是“h+”循环，“否”的逻辑词会把循环变成停机，于是“h+”停机了。如果“h”的结论是“h+”会停机，“否”的逻辑词会把停机变成循环。所以不论“h+”到底是循环还是停机，“h”的判断都是错误的。</p>
+<p>唯一合理的解释就是，不存在“h”这样的机器是不存在，也就是数学系统内不存在一个算法可以判断任何一个命题是真命题还是假命题。</p>
+<p>至此，加上哥德尔再后来提出的“哥德尔第二不完备性定理”希尔伯特提出的三个问题全都被否定了。</p>
+<h2 id="四、希尔伯特的遗产和哥德尔不完备定理的暗示"><a href="#四、希尔伯特的遗产和哥德尔不完备定理的暗示" class="headerlink" title="四、希尔伯特的遗产和哥德尔不完备定理的暗示"></a>四、希尔伯特的遗产和哥德尔不完备定理的暗示</h2><p>对于一个系统，可以实现图灵机模型里的功能，我们就称这个系统是图灵完备的，所有的编程语言都是图灵完备的，我们现在计算机也都是图灵完备的，对于希尔伯特的第三个问题的探求，建立了信息时代的基石——计算机。当今人类使用的一切计算设备，归根到底还是来源于对数学命题可判断性的思考，并且诞生自“自指”的幽灵。</p>
+<p>数学归根到底还是来自于人类的思维，而人类的思维即不能理解自指的悖论，也不会因为自指的悖论而停机或者循环。哥德尔不完备性定理的不完备其实指的是人类思维的不完备，对于当下大火的人工智能领域，1961年，牛津大学的哲学家卢卡斯提出，根据哥德尔不完全性定理，机器不可能具有人的心智。但是机器能否具有人的思维其实无关紧要，因为即使机器具有了人的思维，它也无法突破“自指”的悖论。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/01/04/STL%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%9D-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%93%88%E5%B8%8C/" rel="next" title="STL学习笔记九-字符串哈希">
+                <i class="fa fa-chevron-left"></i> STL学习笔记九-字符串哈希
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E5%AD%90%E2%80%94%E2%80%94%E8%87%AA%E6%8C%87%E7%9A%84%E6%82%96%E8%AE%BA"><span class="nav-number">1.</span> <span class="nav-text">引子——自指的悖论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E7%9A%84%E5%BD%A2%E5%BC%8F%E4%B8%BB%E4%B9%89%E6%A2%A6%E6%83%B3"><span class="nav-number">2.</span> <span class="nav-text">一、希尔伯特的形式主义梦想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%93%A5%E5%BE%B7%E5%B0%94%E7%9A%84%E4%B8%8D%E5%AE%8C%E5%A4%87%E6%80%A7%E5%AE%9A%E7%90%86%E7%9A%84%E8%AF%81%E6%98%8E%E6%80%9D%E8%B7%AF"><span class="nav-number">3.</span> <span class="nav-text">二、哥德尔的不完备性定理的证明思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%9B%BE%E7%81%B5%E6%9C%BA%E9%87%8C%E7%9A%84%E8%87%AA%E6%8C%87%E5%B9%BD%E7%81%B5"><span class="nav-number">4.</span> <span class="nav-text">三、图灵机里的自指幽灵</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%B8%8C%E5%B0%94%E4%BC%AF%E7%89%B9%E7%9A%84%E9%81%97%E4%BA%A7%E5%92%8C%E5%93%A5%E5%BE%B7%E5%B0%94%E4%B8%8D%E5%AE%8C%E5%A4%87%E5%AE%9A%E7%90%86%E7%9A%84%E6%9A%97%E7%A4%BA"><span class="nav-number">5.</span> <span class="nav-text">四、希尔伯特的遗产和哥德尔不完备定理的暗示</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LeingBai</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
